@@ -4,7 +4,6 @@ from rest_framework.response import Response
 from ..models import Order
 from rest_framework.decorators import action,permission_classes
 from ..serializers import OrderDetial,OrderList
-from drf_yasg.utils import swagger_auto_schema
 
 
 class OrderViewSet(viewsets.ViewSet):
@@ -35,12 +34,11 @@ class OrderViewSet(viewsets.ViewSet):
         return Response()
     
 
-    # @action(detail=False,methods=['GET'])
-    # @permission_classes([permissions.IsAuthenticated,permissions.IsAdminUser])
-    # @swagger_auto_schema(responses={200:OrderDetial(many=True)})
-    # def get_orders(self,request):
-    #     store = request.user.store
-    #     data = Order.objects.filter_store_Order(store_id=store.id)
-    #     serializer = OrderDetial(data,many=True)
-    #     return Response(serializer.data)
+    @action(detail=False,methods=['GET'])
+    @permission_classes([permissions.IsAuthenticated,permissions.IsAdminUser])
+    def get_orders(self,request):
+        store = request.user.store
+        data = Order.objects.filter_store_Order(store_id=store.id)
+        serializer = OrderDetial(data,many=True)
+        return Response(serializer.data)
     

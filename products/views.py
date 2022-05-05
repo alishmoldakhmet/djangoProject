@@ -7,7 +7,6 @@ from rest_framework.response import Response
 from rest_framework.decorators import action,permission_classes
 from rest_framework.renderers import JSONRenderer
 from django.shortcuts import get_object_or_404
-from drf_yasg.utils import swagger_auto_schema
 from .serializers import ProductDetailSerializer, ProductListSerializer
 
 class CategoryViewSet(viewsets.ViewSet):

@@ -6,6 +6,5 @@ class UsersConfig(AppConfig):
     name = 'users'
 
     def ready(self):
-        print('users.ready')
         import users.signals
         print("imported")

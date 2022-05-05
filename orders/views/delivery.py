@@ -4,7 +4,6 @@ from rest_framework.response import Response
 from ..models import Delivery
 from rest_framework.decorators import action,permission_classes
 from ..serializers import DeliveryDetial,OrderList
-from drf_yasg.utils import swagger_auto_schema
 
 
 class DeliveryViewSet(viewsets.ViewSet):
@@ -22,9 +21,6 @@ class DeliveryViewSet(viewsets.ViewSet):
         serializer = OrderList(data,many=True)
         return Response(serializer.data)
 
-    @swagger_auto_schema(
-        request_body=DeliveryDetial,responses={200:DeliveryDetial}
-    )
     def create(self,request,*args,**kwargs):
         serializer = DeliveryDetial(data=request.data)
         serializer.is_valid(raise_exception=True)
@@ -40,7 +36,6 @@ class DeliveryViewSet(viewsets.ViewSet):
 
     @action(detail=False,methods=['GET'])
     @permission_classes([permissions.IsAuthenticated,permissions.IsAdminUser])
-    @swagger_auto_schema(responses={200:DeliveryDetial(many=True)})
     def get_orders(self,request):
         store = request.user.store
         data = Delivery.objects.filter_store_Order(store_id=store.id)

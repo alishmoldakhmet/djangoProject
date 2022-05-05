@@ -23,13 +23,30 @@ class RegistrationSerializer(serializers.Serializer):
     email = serializers.EmailField()
     username = serializers.CharField(max_length=150)
 
+
+    # def isrefistered(self,validated_data):
+        # instance = User.objects.create(**validated_data)
+        # instance.set_password(validated_data.get('password'))
+        # instance.save()
+        # return instance
+
+
+    # def useof(self,validated_data):
+        # instance.save()
+        # return instance
+
+
     def validate(self, data):
         data = super().validate(data)
         if data.get('email'):
             if User.objects.filter(email=data.get('email')).exists():
-                raise serializers.ValidationError("This email already registered!")
+                raise serializers.ValidationError("Email уже существует!")
         return data
 
+
+    # def useof(self,validated_data):
+        # instance.save()
+        # return instance
     def create(self,validated_data):
         instance = User.objects.create(**validated_data)
         instance.set_password(validated_data.get('password'))
