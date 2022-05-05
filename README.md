@@ -24,7 +24,4 @@ python manage.py migrate
 
 
 THIDRD PART:
-setup predefined categories and subcategories
-
-python category.py
 python manage.py runserver

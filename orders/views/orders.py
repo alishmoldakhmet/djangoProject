@@ -22,9 +22,6 @@ class OrderViewSet(viewsets.ViewSet):
         serializer = OrderList(data,many=True)
         return Response(serializer.data)
 
-    @swagger_auto_schema(
-        request_body=OrderDetial,responses={200:OrderDetial}
-    )
     def create(self,request,*args,**kwargs):
         serializer = OrderDetial(data=request.data)
         serializer.is_valid(raise_exception=True)
@@ -38,12 +35,12 @@ class OrderViewSet(viewsets.ViewSet):
         return Response()
     
 
-    @action(detail=False,methods=['GET'])
-    @permission_classes([permissions.IsAuthenticated,permissions.IsAdminUser])
-    @swagger_auto_schema(responses={200:OrderDetial(many=True)})
-    def get_orders(self,request):
-        store = request.user.store
-        data = Order.objects.filter_store_Order(store_id=store.id)
-        serializer = OrderDetial(data,many=True)
-        return Response(serializer.data)
+    # @action(detail=False,methods=['GET'])
+    # @permission_classes([permissions.IsAuthenticated,permissions.IsAdminUser])
+    # @swagger_auto_schema(responses={200:OrderDetial(many=True)})
+    # def get_orders(self,request):
+    #     store = request.user.store
+    #     data = Order.objects.filter_store_Order(store_id=store.id)
+    #     serializer = OrderDetial(data,many=True)
+    #     return Response(serializer.data)
     
